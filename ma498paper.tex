@@ -13,6 +13,10 @@
 \usetikzlibrary{arrows,decorations.markings}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{appendix}
 \graphicspath{ {./images/} }
 %\graphicspath{ {c:/user/StevensUser/desktop/} }
 %"C:\Users\StevensUser\Desktop\CR_loglog30.png"
@@ -92,7 +96,7 @@ Conceptually, we take a torus, slice it open, and then flatten it into a plane. 
 
 \section{Fundamental Groups}
 
-As is defined in [book] fundamental group of a surface, centered at a point $x_0$, is the collection of all loops that you can possibly draw which start and end on $x_0$. %TODO: citation
+As is defined in [book] fundamental group of a surface, centered at a point $x_0$, is the collection of all loops that one can possibly draw which start and end on $x_0$. %TODO: citation
 
 To define the fundamental group of the torus, we first must consider that of a circle. The reparameterization of a circle in $\C$, the complex plane, is:
 \[S^1=\{z\in\C\mid |z|=1\},\]
@@ -114,7 +118,9 @@ For a torus, there are two main types of loops: one horizontal loop around the s
 %% TODO: consider rewriting this?
 Now, imagine yourself deciding to frost the doughnut as precisely as you would decorate a cake. You take your pastry piping bag and carefully draw a circle of frosting around the body of the doughnut; this is the horizontal loop. Now, suppose you want to take the second doughnut and completely soak your doughnut in glaze. So, you tie a string through the hole of the doughnut so you can safely submerge it into the glaze without getting your hands all sticky. A wise move. That string you tied around it is the vertical loop we're describing.
 
-If you take the \textit{product} of these two loops, \textit{not} the cross product, we get a torus. Bear with me. The horizontal loop and the vertical loop are both circles, so we can call both of them $S^1$. Their product becomes $S^1\times S^1$, which looks awfully similar to the cross product notation, but do not be deceived. We know $S^1=\{z\in\C\mid|z|=1\}$, and the corresponding fundamental group is $\pi_1(S^1)\simeq\Z$. Thus, we would have
+
+
+If you take the \textit{product} of these two loops, \textit{not} the cross product, we get a torus. The horizontal loop and the vertical loop are both circles, so we can call both of them $S^1$. Their product becomes $S^1\times S^1$, which looks awfully similar to the cross product notation, but do not be deceived. We know $S^1=\{z\in\C\mid|z|=1\}$, and the corresponding fundamental group is $\pi_1(S^1)\simeq\Z$. Thus, we would have
 \[\pi_1(S^1\times S^1)\simeq\pi_1(S^1)\times\pi_1(S^1)\simeq\Z\times\Z,\]
 which gives us the fundamental group of the torus: $\pi_1(T)\simeq\Z\times\Z.$
 
@@ -304,7 +310,19 @@ Clearly, we can define a map $f:\R^2\to\C$ as $f(x,y)=x+yi$.
 
 We can also define the inverse map $g:\C\to\R^2$ as $g(z)=(Re(z),Im(z))$, where $Re(z)=a$ and $Im(z)=b$ are the real and imaginary components of $z=a+bi$, respectively. This inverse map will be useful later, because its existence means that not only can we map the universal covering of a punctured torus to the Riemann sphere; it means we can go back, from the Riemann sphere to the universal covering of the punctured torus.
 
-Below are two 
+Below we have the universal covering projected onto the Riemann sphere, creating an infinite tiling.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/RS colored detailed.jpg}
+    \caption{Universal covering of a torus projected onto the Riemann sphere}
+\end{figure}
+
+For our purposes, it is more effective to redraw the same image using the same initial points that were used in most of the code. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/photo_2025-05-14_19-31-21.jpg}
+    \caption{Universal covering of a torus projected onto the Riemann sphere}
+\end{figure}
 
 \section{Möbius Transformations}
 
@@ -367,44 +385,6 @@ For testing purposes, the cross ratio initially used was 1, hence no imaginary c
 
 % %\includegraphics{CR_loglog30}
 
-\newpage
-\section{Image Generation}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{CR_0}
-    \caption{$CR=1$}
-\end{figure}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{CR_loglog4}
-    \caption{$CR=1+i\log(\log(4))$}
-\end{figure}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{CR_loglog9}
-    \caption{$CR=1+i\log(\log(9))$}
-\end{figure}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{CR_loglog30}
-    \caption{$CR=1+i\log(\log(30))$}
-\end{figure}
-
-
-
-\newpage
-\section{organize this later pls}
-
-I dunno where to put this stuff but okay i guess:
-
-Below we have the universal covering projected onto the Riemann sphere, creating an infinite tiling.
-Chandler's infinite tiling 1 goes here.
-
-For our purposes, it is more effective to redraw the same image using the same initial points that I used in most of the code. 
-Chandler's infinite tiling 2 goes here.
-
-\newpage
 \section{Analysis}
 I have included several images in the following section to be thorough and to provide a detailed account of how the different cross ratios interact with each other. 
 
@@ -414,16 +394,174 @@ The unit circle is present on images to show deviation from the default curve cr
 
 The idea was to use a recursive function to plot the points. There were two conditions to stop the function from running: one is the number of iterations, and the other is the distance between the points. For the first case, the iteration variable is increased by 1 each time the function is called after its initial calling, and once it reaches the specified limit, the function ceases instead of calling itself again. In the second case, a distance is specified. When a new point is calculated, the distance between that new point and its parent points are evaluated, and if the distance between them is still greater than the limit we want, the function is called again to plot more. Otherwise, the function is not called again.
 
-For some cross ratios, the distance limit does not work to sufficiently end the recursion because sometimes the function diverges. The divergence is due to the unique property of the Riemann sphere having a point at infinity, and infinity happening to be one of the points that the curves pass through or approach. See images (INSERT NUMBERS OR WHATEVER) for examples on what the function looks like when it diverges. 
+For some cross ratios, the distance limit does not work to sufficiently end the recursion because sometimes the function diverges. The divergence is due to the unique property of the Riemann sphere having a point at infinity, and infinity happening to be one of the points that the curves pass through or approach. See Figure \ref{fig:divergent cross ratio} for examples on what the function looks like when it diverges. 
+
+\begin{figure}[H]
+    \centering
+     \captionsetup{justification=centering}
+    \includegraphics[width=0.5\linewidth]{nn/a-100 b100 h40 d0.025}
+    \caption{$A=1-100i$, $B=1+100i$\\Example of divergence}
+    \label{fig:divergent cross ratio}
+\end{figure}
 
 In this first example, consider $A=B=1+mi$.
-Without an imaginary component as $m=0$, three cross ratios all equal to $1$. This results in points that lie on a circle of radius $1$, pictured below. Then when a small imaginary component is added, giving $A=1+0.2i$ and $B=1+0.2i$ (put the a0,b0 image here and the a.02,b.02 here side by side.) For $m=1$, we have a symmetrical curve pictured below that appears to be a fractal.
+Without an imaginary component as $m=0$, three cross ratios all equal to $1$. This results in points that lie on a circle of radius $1$, pictured in Figure \ref{fig:circle}. Then when a small imaginary component is added, giving $A=1+0.2i$ and $B=1+0.2i$ (Figure \ref{fig:warped}). For $m=1$, we have a symmetrical curve pictured below that appears to be a fractal (Figure \ref{fig:fractal}).
 
-Things get interesting at $m=2$. Starting with $10$ iterations, the distance between points does not mater, as only $3\cdot2^{10}=3072$ points are being plotted, which is manageable. It is only feasible to go up to $14$ iterations. For $h=10$, that is, $10$ iterations, the following image is produced. The faint outline of an intricate curve can be seen, though the details are lacking due to the limited number of points. For $h=11$, there is a bit more detailing as well as further divergence in the $-x$ and $-y$ direction, around $(-9,-4)$. Not much change is seen between $h=11$ and $h=12$, though more points are plotted which makes the image a bit clearer. At $h=13$, there is more divergence around $(3,3)$. At $h=14$ we see further divergence around $(-11,-4)$ and $(7,21)$. A closeup at $h=14$ has been provided to highlight the intricacies of the figure. 
+\begin{figure}[H]
+     \centering
+     \captionsetup{justification=centering,font={small}}
+     
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/nn/a0 b0 h100 d0.001 auto xy.png}
+         \caption{$A=1+0i$, $B=1+0i$\\Figure is a circle.}
+         \label{fig:circle}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/m/a.2,b.2,h100,d.0010.png}
+         \caption{$A=1+0.2i$, $B=1+0.2i$\\Figure is slightly warped.}
+         \label{fig:warped}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/m/a1,b1,h100,d.005.png}
+         \caption{$A=1+1i$, $B=1+1i$\\Figure resembles a fractal.}
+         \label{fig:fractal}
+     \end{subfigure}
+     %\hfill
+        \caption{Examples of small cross ratio}
+        \label{fig:small CR}
+\end{figure}
 
-This divergence when $m=2$ is not present for $m=3$ and instead the cross ratios produce a fractal curve more intricate to that of $m=1$, which also connects back into itself nicely. For $m=5$, the image is similar to that of $m=3$, though it has become more jagged and angular. Continuing to $m=10$, the points are starting to tend back towards the unit circle, which becomes more obvious at $m=100$ and even more so at $m=1,000$ and $m=10,000$.
+Things get interesting at $m=2$. Starting with $10$ iterations, the distance between points does not mater, as only $3\cdot2^{10}=3072$ points are being plotted, which is manageable. It is only feasible to go up to $14$ iterations. For each of the following examples, please refer to Figure \ref{fig:a2b2}, For $h=10$, that is, $10$ iterations, the faint outline of an intricate curve can be seen, though the details are lacking due to the limited number of points. For $h=11$, there is a bit more detailing as well as further divergence in the $-x$ and $-y$ direction, around $(-9,-4)$. Not much change is seen between $h=11$ and $h=12$, though more points are plotted which makes the image a bit clearer. At $h=13$, there is more divergence around $(3,3)$. At $h=14$ we see further divergence around $(-11,-4)$ and $(7,21)$. A closeup at $h=14$ has been provided to highlight the intricacies of the figure. 
 
-Things grow more intricate at $m=100,000$, where smaller circles are produced along the unit circle, shown below. At $m=150,000$ these circles have grown larger. By $m=1,000,000$ we see many circles that overlap and intersect with the unit circle.
+\begin{figure}[H]
+     \centering
+     \captionsetup{justification=centering,font={small}}
+     
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/a2b2/a2,b2,h10,d0.png}
+         \caption{$h=10$}
+         \label{fig:a2b2h10}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/a2b2/a2,b2,h11,d0.png}
+         \caption{$h=11$}
+         \label{fig:a2b2h11}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/a2b2/a2,b2,h12,d0.png}
+         \caption{$h=12$}
+         \label{fig:a2b2h12}
+     \end{subfigure}
+     
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/a2b2/a2,b2,h13,d0.png}
+         \caption{$h=13$}
+         \label{fig:a2b2h13}
+     \end{subfigure}
+     %\hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/a2b2/a2,b2,h14,d0.png}
+         \caption{$h=14$}
+         \label{fig:a2b2h14}
+     \end{subfigure}
+     
+        \caption{Examples of $A=1+2i$, $B=1+2i$}
+        \label{fig:a2b2}
+\end{figure}
+
+This divergence when $m=2$ is not present for $m=3$ and instead the cross ratios produce a fractal curve more intricate to that of $m=1$, which also connects back into itself nicely, shown in Figure \ref{fig:m}. For $m=5$, the image is similar to that of $m=3$, though it has become more jagged and angular. Continuing to $m=10$, the points are starting to tend back towards the unit circle, which becomes more obvious at $m=100$ and even more so at $m=1,000$ and $m=10,000$.
+
+\begin{figure}
+     \centering
+     \captionsetup{justification=centering,font={small}}
+     
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/m/a3,b3,h100,d.005.png}
+         \caption{$m=3$}
+         \label{fig:m3}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/m/a5,b5,h100,d.005.png}
+         \caption{$m=5$}
+         \label{fig:m5}
+     \end{subfigure}
+     \hfill 
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/m/a10,b10,h100,d.005.png}
+         \caption{$m=10$}
+         \label{fig:m10}
+     \end{subfigure}
+     %\hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/m/a100,b100,h100,d.0010.png}
+         \caption{$m=100$}
+         \label{fig:m100}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/m/a1000,b1000,h100,d.0005.png}
+         \caption{$m=1,000$}
+         \label{fig:m1,000}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/m/a10,000,b10,000,h100,d.0005.png}
+         \caption{$m=10,000$}
+         \label{fig:m10,000}
+     \end{subfigure}
+     
+        \caption{Examples of $A=1+mi$, $B=1+mi$, $h=100$}
+        \label{fig:m}
+\end{figure}
+
+Things grow more intricate at $m=100,000$, where smaller circles are produced along the unit circle, shown below. At $m=150,000$ these circles have grown larger. By $m=1,000,000$ we see many circles that overlap and intersect with the unit circle, shown in Figure \ref{fig:large-m}.
+
+\begin{figure}
+     \centering
+     \captionsetup{justification=centering,font={small}}
+     
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/m/a100,000,b100,000,h100,d.00075.png}
+         \caption{$m=100,000$}
+         \label{fig:m100,000}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/m/a150,000,b150,000,h100,d.0010.png}
+         \caption{$m=150,000$}
+         \label{fig:m150,000}
+     \end{subfigure}
+     \hfill 
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/m/a1,000,000,b1,000,000,h100,d.005.png}
+         \caption{$m=1,000,000$}
+         \label{fig:m1,000,000}
+     \end{subfigure}
+        \caption{Examples of $A=1+mi$, $B=1+mi$, $h=100$, with large $m$}
+        \label{fig:large-m}
+\end{figure}
 
 Some of the images appear to explode when the imaginary components of the cross ratios get sufficiently large. This causes some issues when determining the range of the image. Since there is divergence, I have included a zoomed out version and a zoomed in version, to present the full picture of the end behavior and also the intricacies of the details. Many of these are taken using the same bounds to show the behavior around the original three points.
 
@@ -432,12 +570,18 @@ Take cross ratios $A=1-ni$ and $B=1+ni$ as an example of this. Here we have a co
 
 
 \newpage
+\appendix
+\appendixpage
+\addappheadtotoc
+
+\section{Full Images}
+
+This section contains the full-sized images from previous figures.
+
 \section{Code}
 Below please find the code written to plot the points. A link to the code will also be provided with some comments.
 
 Note that it is unwise to plot more than $14$ iterations without specifying a distance value, since the program plots $3\cdot2^n$ points for $n$ iterations. Also note that due to the potential for divergence, sometimes even specifying a distance is not enough to limit the number of points. It is most efficient to plot $10$ iterations at a distance of $0$ and gradually increase the iterations from there to check for divergence first before specifying a distance and increasing the iteration count. 
-
-
 
 \lstinputlisting[language=Python]{circles3.py}
 
