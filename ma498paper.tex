@@ -17,6 +17,7 @@
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{appendix}
+\usepackage{amsrefs}
 \graphicspath{ {./images/} }
 %\graphicspath{ {c:/user/StevensUser/desktop/} }
 %"C:\Users\StevensUser\Desktop\CR_loglog30.png"
@@ -79,7 +80,7 @@
 
 \begin{document}
 
-\title{Cross Ratio Moduli of the Once-Punctured Torus}
+\title{Cross-Ratio Moduli of the Once-Punctured Torus}
 
 \author{Samantha Cerbone}
 
@@ -88,39 +89,51 @@
 \maketitle
 
 \section{Introduction}
-%Note that in the interest of brevity, some of the more elementary definitions and concepts will not be included in this paper. For additional information regarding Equivalence Relations, Binary Relations, [insert more if necessary], please ask your friendly neighborhood mathematician for assistance. Thank you.
 
-We're taking points on a punctured torus and mapping them 
+When analyzing a once-punctured torus, a projection can be built from the torus to the Riemann sphere by way of the universal covering. This universal covering can be derived from the fundamental group of the once-punctured torus. By splitting the universal covering into an infinite tesselation of triangles, and then carrying that through to the projection onto the Riemann sphere, an invariant can be constructed called the cross-ratio coordinate. The cross-ratio is constructed using the four vertices of any two adjacent triangles. Using three cross-ratio coordinates, an action can be fully determined.
 
-Conceptually, we take a torus, slice it open, and then flatten it into a plane. Mathematically, we take the universal covering of a torus, which is a rectangle, and then divide it further into triangles, for reasons that I will specify later.
+This project takes a particular interest in constructing actions where the product of the three cross-ratio coordinates is $1$. As such, examples will be provided in this paper with a pair of cross-ratios $A$ and $B$, The third cross-ratio is then determined by $1+ci$ where $c$ is calculated using $A$, $B$, and the expected product of $1$. Using these cross-ratio coordinates and three initial points on the Riemann sphere, one can recursively determine additional points using the cross-ratio relation, eventually constructing the action's limit set. The project includes developing software to visualize these limit sets and analyzing how their structure varies with different coordinate choices.
 
 \section{Fundamental Groups}
 
-As is defined in [book] fundamental group of a surface, centered at a point $x_0$, is the collection of all loops that one can possibly draw which start and end on $x_0$. %TODO: citation
+As is defined in Series's lectures on Hyperbolic Geometry, the fundamental group of a surface, centered at a point $x_0$, is the collection of all loops that one can possibly draw which start and end on $x_0$ \cite{Series_Maloni_2013}. 
 
 To define the fundamental group of the torus, we first must consider that of a circle. The reparameterization of a circle in $\C$, the complex plane, is:
 \[S^1=\{z\in\C\mid |z|=1\},\]
 A loop within $S^1$ is a continuous map from $[0,1]$, the unit interval, onto $S^1$, where $x_0$ is the starting and ending point. The fundamental group of $S^1$ at $x_0$, which is written as $\pi_1(S^1,x_0)$, consists of all loops that are centered on the point $x_0$. Some mathematicians like to drop the $x_0$ in favor of writing $\pi_1(X)$. This slight change in notation is perfectly fine as long as $X$ is path-connected, because then the group $\pi_1(X,x_0)$ is independent of the choice of $x_0$, up to isomorphism.
 
-But what \textit{is} the fundamental group of the circle? In Algebraic Topology, by [author], we have the following theorem: %TODO: citation
+But what \textit{is} the fundamental group of the circle? In Algebraic Topology, we have the following theorem \cite{Hatcher_2002}:
 \begin{theorem}
 A map $\Phi:\Z\to\pi_1(S^1)$ sending an integer $n$ to the homotopy class of the loop $\omega_n(s)=(\cos(2\pi ns),\sin(2\pi ns))$ based at $(1,0)$ is an isomorphism.
 \end{theorem}
 
 Complexities aside, this theorem allows us to determine that $\pi_1(S^1)\simeq\Z$, which we can use to determine the fundamental group of our torus.
 
+\begin{figure}
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.5\linewidth]{images/plain torus.jpg}
+    \caption{A torus}
+    \label{fig:torus}
+\end{figure}
+
 %Consider for a moment how the torus is essentially two perpendicular circles joined at a single point. Allow me to explain with a thought experiment.
 Consider for a moment how the torus is essentially two perpendicular circles joined at a single point. This can be explored further with a thought experiment.
 
 For a torus, there are two main types of loops: one horizontal loop around the surface of the torus, and a vertical one that passes through the hole. To better visualize these, imagine that you have two doughnuts in front of you.
-%Now, imagine a woman named Brenda, who asks you to hang these doughnuts from the ceiling fan. You want to hang them so that they $(1)$ don't fall and $(2)$ don't get crushed. 
 
 %% TODO: consider rewriting this?
 Now, imagine yourself deciding to frost the doughnut as precisely as you would decorate a cake. You take your pastry piping bag and carefully draw a circle of frosting around the body of the doughnut; this is the horizontal loop. Now, suppose you want to take the second doughnut and completely soak your doughnut in glaze. So, you tie a string through the hole of the doughnut so you can safely submerge it into the glaze without getting your hands all sticky. A wise move. That string you tied around it is the vertical loop we're describing.
 
+\begin{figure}
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.5\linewidth]{images/torus with curves.jpg}
+    \caption{A torus, with paths shown by two circles}
+    \label{fig:two circles}
+\end{figure}
 
-
-If you take the \textit{product} of these two loops, \textit{not} the cross product, we get a torus. The horizontal loop and the vertical loop are both circles, so we can call both of them $S^1$. Their product becomes $S^1\times S^1$, which looks awfully similar to the cross product notation, but do not be deceived. We know $S^1=\{z\in\C\mid|z|=1\}$, and the corresponding fundamental group is $\pi_1(S^1)\simeq\Z$. Thus, we would have
+If you take the \textit{product} of these two loops, \textit{not} the cross product, we get a torus (demonstrated in Figure \ref{fig:two circles}). The horizontal loop and the vertical loop are both circles, so we can call both of them $S^1$. Their product becomes $S^1\times S^1$, which looks awfully similar to the cross product notation, but do not be deceived. We know $S^1=\{z\in\C\mid|z|=1\}$, and the corresponding fundamental group is $\pi_1(S^1)\simeq\Z$. Thus, we would have
 \[\pi_1(S^1\times S^1)\simeq\pi_1(S^1)\times\pi_1(S^1)\simeq\Z\times\Z,\]
 which gives us the fundamental group of the torus: $\pi_1(T)\simeq\Z\times\Z.$
 
@@ -268,6 +281,15 @@ Likewise, if we wanted to draw a line that passes through the hole of the torus,
 
 Now, we're going to remove one point on the surface of the torus, which does not present too many significant changes to anything already discussed. Topologically, a punctured torus is hardly different from an intact torus. Upon inspection, you'll notice that the universal covering for an intact torus still sufficiently covers a punctured torus, only now that one point that we removed when we punctured the torus is obviously no longer part of the torus, but $\R^2$ still covers it anyway, since $\R^2$ as a covering was designed for a torus will \textit{all} of its points intact. 
 
+\begin{figure}
+    \centering
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.5\linewidth]{images/punctured torus.jpg}
+    \caption{A once-punctured torus}
+    \label{fig:once punctured}
+\end{figure}
+
+
 This can be solved by simply removing a point from the universal covering. Then our covering would look like the following:\\
 
 \centerline{\begin{tikzpicture}[]
@@ -310,18 +332,35 @@ Clearly, we can define a map $f:\R^2\to\C$ as $f(x,y)=x+yi$.
 
 We can also define the inverse map $g:\C\to\R^2$ as $g(z)=(Re(z),Im(z))$, where $Re(z)=a$ and $Im(z)=b$ are the real and imaginary components of $z=a+bi$, respectively. This inverse map will be useful later, because its existence means that not only can we map the universal covering of a punctured torus to the Riemann sphere; it means we can go back, from the Riemann sphere to the universal covering of the punctured torus.
 
-Below we have the universal covering projected onto the Riemann sphere, creating an infinite tiling.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/RS colored detailed.jpg}
-    \caption{Universal covering of a torus projected onto the Riemann sphere}
+In Figure \ref{fig:universal-covering}, we have the universal covering and a projection of the tessellated covering onto the Riemann sphere, creating an infinite tiling. For our purposes, it is more effective to redraw the same image using the same initial points that were used in most of the code (Figure \ref{fig:universal-covering-2}). 
+
+\begin{figure}
+     \centering
+     \captionsetup{justification=centering}
+     
+     \begin{subfigure}[b]{0.4\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/Universal Covering.jpg}
+         \caption{Universal covering of a torus}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.4\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/RS colored detailed.jpg}
+         \caption{Universal covering of a torus projected onto the Riemann sphere}
+         \label{fig:tesselated}
+     \end{subfigure}
+        \caption{}
+        \label{fig:universal-covering}
 \end{figure}
 
-For our purposes, it is more effective to redraw the same image using the same initial points that were used in most of the code. 
-\begin{figure}[H]
+
+\begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{images/photo_2025-05-14_19-31-21.jpg}
-    \caption{Universal covering of a torus projected onto the Riemann sphere}
+    \captionsetup{justification=centering}
+    \includegraphics[width=0.5\textwidth]{images/RS colored detailed 2.jpg}
+    \caption{Universal covering of a torus projected onto the Riemann sphere, using same initial conditions as this project}
+    \label{fig:universal-covering-2}
 \end{figure}
 
 \section{Möbius Transformations}
@@ -329,7 +368,7 @@ For our purposes, it is more effective to redraw the same image using the same i
 Möbius Transformations are a type of deck transformation of the form \[f(z)=\frac{az+b}{cz+d};\quad\quad ad-bc=1,\]
 where $a,b,c,d$ are complex numbers. It should be noted that Möbius transforms are transitive, which means we can combine two or more Möbius transforms together to compose a larger one, just like how we can add together multiple paths to create a longer, more intricate path. Möbius transforms are also bijective, which allows them to be ``undone'' with an inverse.
 
-A crucial property with Möbius transforms is that if you take four distinct, nonzero points on a circle, or line, since circles and lines are one in the same here on $\hat\C$, you can transform them into any other combination of four distinct, nonzero points using Möbius transforms. Below is a theorem, courtesy of a handout written by Rich Schwartz: %TODO: citation
+A crucial property with Möbius transforms is that if you take four distinct, nonzero points on a circle, or line, since circles and lines are one in the same here on $\hat\C$, you can transform them into any other combination of four distinct, nonzero points using Möbius transforms. Below is a theorem, courtesy of a handout written by Rich Schwartz \cite{Schwartz_2007}:
 \begin{theorem}Let $(z_1,z_2,z_3)$ and $(z_1^\prime,z_2^\prime,z_3^\prime)$ be triplets of distinct points. Then there is a unique Möbius transformation $T$ such that $T(z_1,z_2,z_3)=(z_1^\prime,z_2^\prime,z_3^\prime)$.
 \end{theorem}
 
@@ -357,82 +396,64 @@ All we need to do next is find the $M_z$ matrix maps our points $[z_1,z_2,z_3,z_
 \end{align*}
  Clearly, the Möbius transform that sends $[z_1,z_2,z_3,z_4]$ to $[w_1,w_2,w_3,w_4]$ is
 \[M=M_z\circ M_w^{-1}.\]
-The relationship between four distinct points is represented by a cross ratio, which is unique to the ordering of the points. Thus, changing the order of the points changes the cross ratio, which has been somewhat convenient during my coding process. Changing the ordering of the points in the cross ratio calculation is how I was able to get my function to change directions.
+The relationship between four distinct points is represented by a cross-ratio, which is unique to the ordering of the points. Thus, changing the order of the points changes the cross-ratio, which has been somewhat convenient during my coding process. Changing the ordering of the points in the cross-ratio calculation is how I was able to get my function to change directions.
 
 When plotting our first three points on the circle, we have a triangle with vertices $F$, $A$, and $L$ where
 {$F=(0,1)$, $A=\left(\sfrac{\sqrt3}{2},\sfrac{-\sqrt3}{2}\right)$, $L=\left(\sfrac{-\sqrt3}{2},\sfrac{-\sqrt3}{2}\right)$}. Note that choice of initial points is arbitrary, and these three points were selected simply because they form a symmetrical triangle on the circle.
 
 Paths and loops on this modified version of the universal covering is similar to how paths and loops work on the torus universal covering, you start at a point on $B$ and regardless of which edge you cross, you enter $A$. the orientation is important. the side you enter in is the one that determines your next possible moves. Now that we're in $A$, say we continue in this straight line and proceed back into $B$ again. Now we are back in $B$ but this time we entered from this other side. This process repeats infinitely, though an iteration counter is used to limit the number of points plotted.
 
-For testing purposes, the cross ratio initially used was 1, hence no imaginary component and hence we would have the product of each sides' cross ratio equal to 1. When the product of all three sides is $1$, we get points on a circle.
-
-
-
-% \section{Notable Mistakes}
-
-% I realized that after I had already written working code and generated some images that I had misunderstood the purpose of the assignment. Recall how each of the sides of the universal covering are {distinctly labeled} and \underline{associated with its own cross ratio}. The fact that each of the sides must have its own cross ratio had slipped my mind and I had used one cross ratio for \underline{all} of the sides.
-
-% The problem here is our points plotted using a cross ratio with an imaginary component no longer lie on the circle. We specifically want to choose $a$, $b,$ and $c$ such that
-% \[(1+ai)(1+bi)(1+ci)=1,\]
-% which would ensure that all the plotted points will lie on the boundary of a circle. Since I used a slider input to determine the imaginary cross ratio component, which again is the \textit{same} for all the sides, my points have quite literally gone off the rails. I had
-% \begin{align*}
-% (1+ai)(1+ai)(1+ai)=(1+ai)^3=(1-3a^2)+i(3a-a^3),
-% %\implies a=0,\, a=\frac{\sqrt3}{2}\pm i\frac{3}{2}
-% \end{align*}
-% which is only equal to $1$ if we have $a=0$, which was my test case to ensure the points were correctly plotted, and $a=(\sqrt3\pm3i)/2$. This of course meant that the complex points I have plotted were not on a circle, nor was the resulting image simply connected.  Instead, I created a slightly-rough-looking Cayley graph, pictured in the following section.
-
-% Despite not being the goal of the project, I decided to include these images because I think they look nice. Additionally, making mistakes also provides an opportunity to learn more, and to even find interesting results that you were not looking for. 
-
-% %\includegraphics{CR_loglog30}
+For testing purposes, the cross-ratio initially used was 1, hence no imaginary component and hence we would have the product of each sides' cross-ratio equal to 1. When the product of all three sides is $1$, we get points on a circle.
 
 \section{Analysis}
-I have included several images in the following section to be thorough and to provide a detailed account of how the different cross ratios interact with each other. 
+
+I have included several images in the following section to be thorough and to provide a detailed account of how the different cross-ratios interact with each other. 
 
 The three initial points used for the following images are 
 $(0,1)$, $\left({\sqrt{3}}/{2},{-\sqrt{3}}/{2}\right)$, and $\left({-\sqrt{3}}/{2},{-\sqrt{3}}/{2}\right)$.
-The unit circle is present on images to show deviation from the default curve created using three cross ratios all equal to $1$.
+The unit circle is present on images to show deviation from the default curve created using three cross-ratios all equal to $1$.
 
 The idea was to use a recursive function to plot the points. There were two conditions to stop the function from running: one is the number of iterations, and the other is the distance between the points. For the first case, the iteration variable is increased by 1 each time the function is called after its initial calling, and once it reaches the specified limit, the function ceases instead of calling itself again. In the second case, a distance is specified. When a new point is calculated, the distance between that new point and its parent points are evaluated, and if the distance between them is still greater than the limit we want, the function is called again to plot more. Otherwise, the function is not called again.
 
-For some cross ratios, the distance limit does not work to sufficiently end the recursion because sometimes the function diverges. The divergence is due to the unique property of the Riemann sphere having a point at infinity, and infinity happening to be one of the points that the curves pass through or approach. See Figure \ref{fig:divergent cross ratio} for examples on what the function looks like when it diverges. 
+For some cross-ratios, the distance limit does not work to sufficiently end the recursion because sometimes the function diverges. The divergence is due to the unique property of the Riemann sphere having a point at infinity, and infinity happening to be one of the points that the curves pass through or approach. See Figure \ref{fig:divergent cross-ratio} for examples on what the function looks like when it diverges. 
 
 \begin{figure}[H]
     \centering
-     \captionsetup{justification=centering}
+    \captionsetup{justification=centering}
     \includegraphics[width=0.5\linewidth]{nn/a-100 b100 h40 d0.025}
     \caption{$A=1-100i$, $B=1+100i$\\Example of divergence}
-    \label{fig:divergent cross ratio}
+    \label{fig:divergent cross-ratio}
 \end{figure}
 
 In this first example, consider $A=B=1+mi$.
-Without an imaginary component as $m=0$, three cross ratios all equal to $1$. This results in points that lie on a circle of radius $1$, pictured in Figure \ref{fig:circle}. Then when a small imaginary component is added, giving $A=1+0.2i$ and $B=1+0.2i$ (Figure \ref{fig:warped}). For $m=1$, we have a symmetrical curve pictured below that appears to be a fractal (Figure \ref{fig:fractal}).
+Without an imaginary component as $m=0$, three cross-ratios all equal to $1$. This results in points that lie on a circle of radius $1$, pictured in Figure \ref{fig:circle}. Then when a small imaginary component is added, giving $A=1+0.2i$ and $B=1+0.2i$ (Figure \ref{fig:warped}). For $m=1$, we have a symmetrical curve pictured below that appears to be a fractal (Figure \ref{fig:fractal}).
 
 \begin{figure}[H]
      \centering
      \captionsetup{justification=centering,font={small}}
      
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[b]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{images/nn/a0 b0 h100 d0.001 auto xy.png}
          \caption{$A=1+0i$, $B=1+0i$\\Figure is a circle.}
          \label{fig:circle}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[b]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{images/m/a.2,b.2,h100,d.0010.png}
          \caption{$A=1+0.2i$, $B=1+0.2i$\\Figure is slightly warped.}
          \label{fig:warped}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[b]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{images/m/a1,b1,h100,d.005.png}
          \caption{$A=1+1i$, $B=1+1i$\\Figure resembles a fractal.}
          \label{fig:fractal}
      \end{subfigure}
      %\hfill
-        \caption{Examples of small cross ratio}
+        \caption{Examples of small cross-ratio}
         \label{fig:small CR}
 \end{figure}
 
@@ -481,9 +502,9 @@ Things get interesting at $m=2$. Starting with $10$ iterations, the distance bet
         \label{fig:a2b2}
 \end{figure}
 
-This divergence when $m=2$ is not present for $m=3$ and instead the cross ratios produce a fractal curve more intricate to that of $m=1$, which also connects back into itself nicely, shown in Figure \ref{fig:m}. For $m=5$, the image is similar to that of $m=3$, though it has become more jagged and angular. Continuing to $m=10$, the points are starting to tend back towards the unit circle, which becomes more obvious at $m=100$ and even more so at $m=1,000$ and $m=10,000$.
+This divergence when $m=2$ is not present for $m=3$ and instead the cross-ratios produce a fractal curve more intricate to that of $m=1$, which also connects back into itself nicely, shown in Figure \ref{fig:m}. For $m=5$, the image is similar to that of $m=3$, though it has become more jagged and angular. Continuing to $m=10$, the points are starting to tend back towards the unit circle, which becomes more obvious at $m=100$ and even more so at $m=1,000$ and $m=10,000$.
 
-\begin{figure}
+\begin{figure}[H]
      \centering
      \captionsetup{justification=centering,font={small}}
      
@@ -563,10 +584,9 @@ Things grow more intricate at $m=100,000$, where smaller circles are produced al
         \label{fig:large-m}
 \end{figure}
 
-Some of the images appear to explode when the imaginary components of the cross ratios get sufficiently large. This causes some issues when determining the range of the image. Since there is divergence, I have included a zoomed out version and a zoomed in version, to present the full picture of the end behavior and also the intricacies of the details. Many of these are taken using the same bounds to show the behavior around the original three points.
+Some of the images appear to explode when the imaginary components of the cross-ratios get sufficiently large. This causes some issues when determining the range of the image. Since there is divergence, I have included a zoomed out version and a zoomed in version, to present the full picture of the end behavior and also the intricacies of the details. Many of these are taken using the same bounds to show the behavior around the original three points.
 
-Take cross ratios $A=1-ni$ and $B=1+ni$ as an example of this. Here we have a collection of $A=1-ni$ and $B=1+ni$ with different values of $n$. In the first image, the cross ratios are $A=1$, $B=1$, $C=1$ using $n=0$, which simply gives us a circle. From now on, I will only be referring to cross ratios $A$ and $B$, since $C$ is not an input and is instead calculated using the relation $A\cdot B\cdot C=1$. Once the imaginary component is increased slightly to $n=1$, giving $A=1-1i$ $B=1+1i$, we find that the points no longer rest on the circle and instead form this chicken nugget-looking curve, but still a curve nonetheless. Increasing the imaginary component further, to $A=1-2i$ and $B=1+2i$ gives us another more intricate curve that still connects to itself. At $A=1-2.5i$ and $B=1+2.5i$ we see that the curve is already starting to spread out and no longer connects to itself like it did before. Increasing to $n=3$ gives $A=1-3i$ and $B=1+3i$ and causes the curve to twist and create a very interesting image. From $n=3$ to $n=5$ we see clusters of points surrounding two of the initial points, $(1,0)$ and $(-\sqrt3/2,-\sqrt3/2)$, which get tighter as $n$ increases. Near the third initial point $(\sqrt3/2,-\sqrt3/2)$, there is a gap where points avoid, which is most dramatic at $n=10$. At $n=100$ we see multiple curves that resemble waves emitting from $(\sqrt3/2,-\sqrt3/2)$.
-
+Take cross-ratios $A=1-ni$ and $B=1+ni$ as an example of this. Here we have a collection of $A=1-ni$ and $B=1+ni$ with different values of $n$. In the first image, the cross-ratios are $A=1$, $B=1$, $C=1$ using $n=0$, which simply gives us a circle. From now on, I will only be referring to cross-ratios $A$ and $B$, since $C$ is not an input and is instead calculated using the relation $A\cdot B\cdot C=1$. Once the imaginary component is increased slightly to $n=1$, giving $A=1-1i$ $B=1+1i$, we find that the points no longer rest on the circle and instead form this chicken nugget-looking curve, but still a curve nonetheless. Increasing the imaginary component further, to $A=1-2i$ and $B=1+2i$ gives us another more intricate curve that still connects to itself. At $A=1-2.5i$ and $B=1+2.5i$ we see that the curve is already starting to spread out and no longer connects to itself like it did before. Increasing to $n=3$ gives $A=1-3i$ and $B=1+3i$ and causes the curve to twist and create a very interesting image. From $n=3$ to $n=5$ we see clusters of points surrounding two of the initial points, $(1,0)$ and $(-\sqrt3/2,-\sqrt3/2)$, which get tighter as $n$ increases. Near the third initial point $(\sqrt3/2,-\sqrt3/2)$, there is a gap where points avoid, which is most dramatic at $n=10$. At $n=100$ we see multiple curves that resemble waves emitting from $(\sqrt3/2,-\sqrt3/2)$.
 
 
 \newpage
@@ -585,5 +605,6 @@ Note that it is unwise to plot more than $14$ iterations without specifying a di
 
 \lstinputlisting[language=Python]{circles3.py}
 
-
+\newpage
+\bibliography{refs}
 \end{document}
