@@ -27,7 +27,7 @@
     %urlcolor=cyan,
     pdftitle={Cross-Ratio Moduli of the Once-Punctured Torus},
     pdfauthor={Samantha Cerbone},
-    pdfpagemode=FullScreen,
+    %pdfpagemode=FullScreen,
     }
 \graphicspath{ {./images/} }
 %\graphicspath{ {c:/user/StevensUser/desktop/} }
@@ -100,11 +100,13 @@
 %\end{abstract}
 \maketitle
 
+\tableofcontents
+\newpage
 \section{Introduction}
 
-When analyzing a once-punctured torus, a projection can be built from the torus to the Riemann sphere by way of the universal covering. This universal covering can be derived from the fundamental group of the once-punctured torus. By splitting the universal covering into an infinite tesselation of triangles, and then carrying that through to the projection onto the Riemann sphere, an invariant can be constructed called the cross-ratio coordinate. The cross-ratio is constructed using the four vertices of any two adjacent triangles. Using three cross-ratio coordinates, an action can be fully determined.
+When analyzing a once-punctured torus, a projection can be built from the torus to the Riemann sphere by way of the universal covering. This universal covering can be derived from the fundamental group of the once-punctured torus. When examining its universal cover, this structure unfolds into an infinite tessellation of triangles. Carrying that through to the projection onto the Riemann sphere, an invariant can be constructed called the cross-ratio coordinate. The cross-ratio is constructed using the four vertices of any two adjacent triangles. Using three cross-ratio coordinates, an action can be fully determined.
 
-This project takes a particular interest in constructing actions where the product of the three cross-ratio coordinates is $1$. As such, examples will be provided in this paper with a pair of cross-ratios $A$ and $B$, The third cross-ratio is then determined by $1+ci$ where $c$ is calculated using $A$, $B$, and the expected product of $1$. Using these cross-ratio coordinates and three initial points on the Riemann sphere, one can recursively determine additional points using the cross-ratio relation, eventually constructing the action's limit set. The project includes developing software to visualize these limit sets and analyzing how their structure varies with different coordinate choices.
+This project takes a particular interest in constructing actions where the product of the three cross-ratio coordinates is $1$. As such, examples will be provided in this paper with a pair of cross-ratios $A$ and $B$. The third cross-ratio is then determined by $1+ci$ where $c$ is calculated using $A$, $B$, and the expected product of $1$. Using these cross-ratio coordinates and three initial points on the Riemann sphere, one can recursively determine additional points using the cross-ratio relation, eventually constructing the action's limit set. The project includes developing software to visualize these limit sets and analyzing how their structure varies with different coordinate choices.
 
 \section{Fundamental Groups}
 
@@ -353,13 +355,14 @@ In Figure \ref{fig:universal-covering}, we have the universal covering and a pro
      \centering
      \captionsetup{justification=centering}
      
-     \begin{subfigure}[b]{0.4\textwidth}
+     \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{images/Universal Covering.jpg}
          \caption{Universal covering of a torus}
+         \label{fig:covering}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.4\textwidth}
+     \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{images/RS colored detailed.jpg}
          \caption{Universal covering of a torus projected onto the Riemann sphere}
@@ -449,21 +452,21 @@ Without an imaginary component as $m=0$, three cross-ratios all equal to $1$. Th
      \centering
      \captionsetup{justification=centering,font={small}}
      
-     \begin{subfigure}[b]{0.4\textwidth}
+     \begin{subfigure}[b]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{images/nn/a0 b0 h100 d0.001 auto xy.png}
          \caption{$A=1+0i$, $B=1+0i$\\Figure is a circle.}
          \label{fig:circle}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.4\textwidth}
+     \begin{subfigure}[b]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{images/m/a.2,b.2,h100,d.0010.png}
          \caption{$A=1+0.2i$, $B=1+0.2i$\\Figure is slightly warped.}
          \label{fig:warped}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.4\textwidth}
+     \begin{subfigure}[b]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{images/m/a1,b1,h100,d.005.png}
          \caption{$A=1+1i$, $B=1+1i$\\Figure resembles a fractal.}
@@ -474,7 +477,7 @@ Without an imaginary component as $m=0$, three cross-ratios all equal to $1$. Th
         \label{fig:small CR}
 \end{figure}
 
-Things get interesting at $m=2$. Starting with $10$ iterations, the distance between points does not mater, as only $3\cdot2^{10}=3072$ points are being plotted, which is manageable. It is only feasible to go up to $14$ iterations. For each of the following examples, please refer to Figure \ref{fig:a2b2}, For $h=10$, that is, $10$ iterations, the faint outline of an intricate curve can be seen, though the details are lacking due to the limited number of points. For $h=11$, there is a bit more detailing as well as further divergence in the $-x$ and $-y$ direction, around $(-9,-4)$. Not much change is seen between $h=11$ and $h=12$, though more points are plotted which makes the image a bit clearer. At $h=13$, there is more divergence around $(3,3)$. At $h=14$ we see further divergence around $(-11,-4)$ and $(7,21)$. A closeup at $h=14$ has been provided to highlight the intricacies of the figure. 
+Things get interesting at $m=2$. Starting with $10$ iterations, the distance between points does not mater, as only $3\cdot2^{10}=3072$ points are being plotted, which is manageable. It is only feasible to go up to $14$ iterations.  For each of the following examples, please refer to Figure \ref{fig:a2b2}, For $h=10$, that is, $10$ iterations, the faint outline of an intricate curve can be seen, though the details are lacking due to the limited number of points. For $h=11$, there is a bit more detailing as well as further divergence in the $-x$ and $-y$ direction, around $(-9,-4)$. Not much change is seen between $h=11$ and $h=12$, though more points are plotted which makes the image a bit clearer. At $h=13$, there is more divergence around $(3,3)$. At $h=14$ we see further divergence around $(-11,-4)$ and $(7,21)$. A closeup at $h=14$ has been provided to highlight the intricacies of the figure. 
 
 \begin{figure}[H]
      \centering
@@ -567,38 +570,69 @@ This divergence when $m=2$ is not present for $m=3$ and instead the cross-ratios
          \label{fig:m10,000}
      \end{subfigure}
      
-        \caption{Examples of $A=1+mi$, $B=1+mi$, $h=100$}
+        \caption{Examples of $A=B=1+mi$, $h=100$}
         \label{fig:m}
 \end{figure}
 
-Things grow more intricate at $m=100,000$, where smaller circles are produced along the unit circle, shown below. At $m=150,000$ these circles have grown larger. By $m=1,000,000$ we see many circles that overlap and intersect with the unit circle, shown in Figure \ref{fig:large-m}.
+Things grow more intricate at $m=100,000$, where smaller circles are produced along the unit circle, shown below. At $m=150,000$ these circles have grown larger. By $m=1,000,000$ we see many circles that overlap and intersect with the unit circle, shown in Figures \ref{fig:large-m} and \ref{fig:large-m2}.
 
 \begin{figure}[H]
      \centering
      \captionsetup{justification=centering,font={small}}
      
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{images/m/a100,000,b100,000,h100,d.00075.png}
          \caption{$m=100,000$}
          \label{fig:m100,000}
      \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
+     \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{images/m/a150,000,b150,000,h100,d.0010.png}
          \caption{$m=150,000$}
          \label{fig:m150,000}
      \end{subfigure}
-     \hfill 
-     \begin{subfigure}[b]{0.3\textwidth}
+        \caption{Examples of $A=B=1+mi$, $h=100$, with large $m$}
+        \label{fig:large-m}
+\end{figure}
+\begin{figure}[H]
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/m/a200,000,b200,000,h100,d.0010.png}
+         \caption{$m=200,000$}
+         \label{fig:m200,000}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{images/m/a1,000,000,b1,000,000,h100,d.005.png}
          \caption{$m=1,000,000$}
          \label{fig:m1,000,000}
      \end{subfigure}
-        \caption{Examples of $A=1+mi$, $B=1+mi$, $h=100$, with large $m$}
-        \label{fig:large-m}
+     
+        \caption{Examples of $A=B=1+mi$, $h=100$, with large $m$}
+        \label{fig:large-m2}
+\end{figure}
+
+It is also important to note that the order of cross-ratios matters and leads to distinct images. Consider the below examples of $A=1+10i$, $B=1+1i$, and how that differs from $A=1+1i$, $B=1+10i$. Additionally, note that there is also divergence in $A=1+1i$, $B=1+100i$, but no such divergence in $A=1+100i$, $B=1+1i$.
+
+\begin{figure}[H]
+     \centering
+     \captionsetup{justification=centering,font={small}}
+     
+     \begin{subfigure}[b]{.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/a1,b100,h100,d.05.png}
+         \caption{$A=1+1i$, $B=1+100i$, $h=100$}
+         \label{fig:a1b100}
+     \end{subfigure}
+     \begin{subfigure}[b]{.49\textwidth}
+         \centering
+        \includegraphics[width=\textwidth]{images/a100,b1,h100,d.05.png}
+         \caption{$A=1+100i$, $B=1+1i$, $h=100$}
+         \label{fig:a100b1}
+     \end{subfigure}
+        \caption{Examples of divergence with adjusted ranges}
+        \label{fig:divergence-with-ranges}
 \end{figure}
 
 Some of the images appear to explode when the imaginary components of the cross-ratios get sufficiently large. This causes some issues when determining the range of the image. Since there is divergence, I have included a zoomed out version and a zoomed in version in Figure \ref{fig:divergence-with-ranges}, to present the full picture of the end behavior and also the intricacies of the details. Many of these are taken using the same bounds to show the behavior around the original three points.
@@ -609,15 +643,16 @@ Some of the images appear to explode when the imaginary components of the cross-
      
      \begin{subfigure}[b]{\textwidth}
          \centering
-         \includegraphics[width=.4\textwidth]{images/a1,b100,h100,d.01 custom xy.png}         \includegraphics[width=.4\textwidth]{images/a1,b100,h100,d.05.png}
-         \caption{$A=1$, $B=100$, $h=100$}
+         \includegraphics[width=.49\textwidth]{images/a1,b100,h100,d.01 custom xy.png}       
+         \includegraphics[width=.49\textwidth]{images/a1,b100,h100,d.05.png}
+         \caption{$A=1+1i$, $B=1+100i$, $h=100$}
          \label{fig:a1b100range}
      \end{subfigure}
      \begin{subfigure}[b]{\textwidth}
          \centering
-        \includegraphics[width=.4\textwidth]{images/a2b2/a2,b2,h14,d0 custom bounds.png}
-        \includegraphics[width=.4\textwidth]{images/a2b2/a2,b2,h14,d0.png}
-         \caption{$A=2$, $B=2$, $h=14$}
+        \includegraphics[width=.49\textwidth]{images/a2b2/a2,b2,h14,d0 custom bounds.png}
+        \includegraphics[width=.49\textwidth]{images/a2b2/a2,b2,h14,d0.png}
+         \caption{$A=1+2i$, $B=1+2i$, $h=14$}
          \label{fig:a2b2h14range}
      \end{subfigure}
         \caption{Examples of divergence with adjusted ranges}
@@ -696,24 +731,31 @@ Take cross-ratios $A=1-ni$ and $B=1+ni$ as an example of this. Here we have a co
          \caption{$n=100$}
          \label{fig:n100}
     \end{subfigure}
-    \caption{Examples of $A=1+mi$, $B=1+mi$, $h=100$, with large $m$}
+    \caption{Examples of $A=B=1+mi$, $h=100$, with large $m$}
     \label{fig:nn}
 \end{figure}
+
+
+\section{Future Work}
+
+There are a few areas which could have been explored further given additional time and compute resources. For example, if different initial points were chosen or the product of the cross-ratio coordinates wasn't one, the patterns generated would have been completely different. Even just exploring more combinations of cross-ratios or more negative cross-ratios would have potentially revealed additional patterns in the data. The last area with room for improvement is the code itself which was used to generate the images. There were times (around 15 iterations) when the calculation time hit over 30 minutes, which severely restricted the ability to run arbitrary cross-ratios for high iteration counts. Instead, each cross-ratio set would have to be checked at a lower iteration count to ensure the resulting figure converged. Access to more compute power (for convergent, but complex scenarios) or better divergence detection (for earlier backoff) would allow future work to be explored with fewer limits.
+
+\section{Conclusion}
+
+In this paper, the limit sets of over 30 cross-ratio coordinate sets were computed (within the limits of the hardware used). This information allows one to extrapolate what might happen given a set of cross-ratio coordinates working from the Riemann sphere, for the set initial conditions. Although several of these patterns revealed convergent curves of varying complexity, there is a tendency for some cross-ratio coordinates to diverge. This is due to the presence of infinity on the Riemann sphere, but warrants further exploration on its own given the variety of values we see this occur with (ex. $A=1+2i$, $B=1+2i$, but also $A=1+1i$, $B=1+100i$). 
+
+%choose different initial points
+%scenario where the product of cross-ratio coordinates wasn't one
+%find a way to determine more points in a divergent scenario
+%optimize the code so it can exceed current limits (around 100k points or 14 iterations)
+%explore more combinations of cross-ratios
+%explore more with negative cross-ratios
+
 
 \newpage
 \appendix
 \appendixpage
 \addappheadtotoc
-
-\section{Full Images}
-
-This section contains the full-sized images from previous figures.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{images/plain torus.jpg}
-    \caption{Full-scale image of Figure \ref{fig:torus}}
-\end{figure}
 
 \section{Code}
 Please find below the code written to plot the points (an up-to-date version is kept \href{https://github.com/scerbone121/ma499report/blob/main/circles3.py}{here}, on GitHub.
@@ -727,4 +769,245 @@ Note that it is unwise to plot more than $14$ iterations without specifying a di
 
 \newpage
 \listoffigures
+
+\newpage
+\section{Full Images}
+
+This section contains the full-sized images from previous figures.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/plain torus.jpg}
+    \caption{Full-scale image of Figure~\ref{fig:torus}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/torus with curves.jpg}
+    \caption{Full-scale image of Figure~\ref{fig:two circles}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/punctured torus.jpg}
+    \caption{Full-scale image of Figure~\ref{fig:once punctured}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/Universal Covering.jpg}
+    \caption{Full-scale image of Figure~\ref{fig:covering}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/RS colored detailed.jpg}
+    \caption{Full-scale image of Figure~\ref{fig:tesselated}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/RS colored detailed 2.jpg}
+    \caption{Full-scale image of Figure~\ref{fig:universal-covering-2}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{nn/a-100 b100 h40 d0.025}
+    \caption{Full-scale image of Figure~\ref{fig:divergent cross-ratio}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/nn/a0 b0 h100 d0.001 auto xy.png}
+    \caption{Full-scale image of Figure~\ref{fig:circle}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/m/a.2,b.2,h100,d.0010.png}
+    \caption{Full-scale image of Figure~\ref{fig:warped}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/m/a1,b1,h100,d.005.png}
+    \caption{Full-scale image of Figure~\ref{fig:fractal}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/a2b2/a2,b2,h10,d0.png}
+    \caption{Full-scale image of Figure~\ref{fig:a2b2h10}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/a2b2/a2,b2,h11,d0.png}
+    \caption{Full-scale image of Figure~\ref{fig:a2b2h11}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/a2b2/a2,b2,h12,d0.png}
+    \caption{Full-scale image of Figure~\ref{fig:a2b2h12}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/a2b2/a2,b2,h13,d0.png}
+    \caption{Full-scale image of Figure~\ref{fig:a2b2h13}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/a2b2/a2,b2,h14,d0.png}
+    \caption{Full-scale image of Figure~\ref{fig:a2b2h14}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/m/a3,b3,h100,d.005.png}
+    \caption{Full-scale image of Figure~\ref{fig:m3}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/m/a5,b5,h100,d.005.png}
+    \caption{Full-scale image of Figure~\ref{fig:m5}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/m/a10,b10,h100,d.005.png}
+    \caption{Full-scale image of Figure~\ref{fig:m10}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/m/a100,b100,h100,d.0010.png}
+    \caption{Full-scale image of Figure~\ref{fig:m100}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/m/a1000,b1000,h100,d.0005.png}
+    \caption{Full-scale image of Figure~\ref{fig:m1,000}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/m/a10,000,b10,000,h100,d.0005.png}
+    \caption{Full-scale image of Figure~\ref{fig:m10,000}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/m/a100,000,b100,000,h100,d.00075.png}
+    \caption{Full-scale image of Figure~\ref{fig:m100,000}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/m/a150,000,b150,000,h100,d.0010.png}
+    \caption{Full-scale image of Figure~\ref{fig:m150,000}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/m/a200,000,b200,000,h100,d.0010.png}
+    \caption{Full-scale image of Figure~\ref{fig:m200,000}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/m/a1,000,000,b1,000,000,h100,d.005.png}
+    \caption{Full-scale image of Figure~\ref{fig:m1,000,000}}
+\end{figure}
+
+\begin{figure}[H]
+     \centering
+     \includegraphics[width=\textwidth]{images/a1,b100,h100,d.01 custom xy.png}      
+     \caption{Full-scale image of Figure~\ref{fig:a1b100}}
+\end{figure}
+
+\begin{figure}[H]
+        \includegraphics[width=\textwidth]{images/a100,b1,h100,d.05.png}
+         \caption{Full-scale image of Figure~\ref{fig:a100b1}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/a1,b100,h100,d.01 custom xy.png}         \includegraphics[width=\textwidth]{images/a1,b100,h100,d.05.png}
+    \caption{Full-scale image of Figure~\ref{fig:a1b100range}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/a2b2/a2,b2,h14,d0 custom bounds.png}
+    \includegraphics[width=\textwidth]{images/a2b2/a2,b2,h14,d0.png}
+    \caption{Full-scale image of Figure~\ref{fig:a2b2h14range}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/nn/a0 b0 h100 d0.001 fixed xy.png}
+    \caption{Full-scale image of Figure~\ref{fig:n0}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/nn/a-1 b1 h30 d0.01.png}
+    \caption{Full-scale image of Figure~\ref{fig:n1}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/nn/a-2 b2 h30 d0.01.png}
+    \caption{Full-scale image of Figure~\ref{fig:n2}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/nn/a-2.5 b2.5 h30 d0.01.png}
+    \caption{Full-scale image of Figure~\ref{fig:n2.5}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/nn/a-3 b3 h40 d0.025.png}
+    \caption{Full-scale image of Figure~\ref{fig:n3}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/nn/a-3.5 b3.5 h30 d0.01.png}
+    \caption{Full-scale image of Figure~\ref{fig:n3.5}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/nn/a-4 b4 h30 d0.01.png}
+    \caption{Full-scale image of Figure~\ref{fig:n4}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/nn/a-5 b5 h30 d0.01.png}
+    \caption{Full-scale image of Figure~\ref{fig:n5}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/nn/a-10 b10 h30 d0.01.png}
+    \caption{Full-scale image of Figure~\ref{fig:n10}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/nn/a-100 b100 h40 d0.025.png}
+    \caption{Full-scale image of Figure~\ref{fig:n100}}
+\end{figure}
+
+
 \end{document}
